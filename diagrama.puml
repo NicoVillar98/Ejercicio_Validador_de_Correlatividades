@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class Materia {
+    - nombre: String
+    - correlativas: Set<Materia>
+    + Materia(nombre: String)
+    + agregarCorrelativa(materia: Materia)
+    + tieneCorrelativasAprobadas(materiasAprobadas: Set<Materia>): boolean
+    + getNombre(): String
+}
+
+class Alumno {
+    - nombre: String
+    - materiasAprobadas: Set<Materia>
+    + Alumno(nombre: String)
+    + aprobarMateria(materia: Materia)
+    + getMateriasAprobadas(): Set<Materia>
+}
+
+class Inscripcion {
+    - alumno: Alumno
+    - materiasSolicitadas: Set<Materia>
+    + Inscripcion(alumno: Alumno, materiasSolicitadas: Set<Materia>)
+    + aprobada(): boolean
+}
+
+Materia         <--     Materia : tiene correlativas
+Alumno          <--     Materia : ha aprobado
+Inscripcion     <--     Materia : solicita
+Inscripcion     o--     Alumno : pertenece a
+
+@enduml
